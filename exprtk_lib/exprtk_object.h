@@ -1,6 +1,6 @@
 #pragma once
 
-#include "exprtk.hpp"
+#include "externals/exprtk/exprtk.hpp"
 
 class exprtk_object
 {

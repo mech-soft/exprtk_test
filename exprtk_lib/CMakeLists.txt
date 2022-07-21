@@ -4,17 +4,20 @@ project(exprtk_lib C CXX)
 
 add_compile_options(/bigobj)
 
-file(GLOB_RECURSE HEADERS_EXPRTK_LIB *.h)
-file(GLOB_RECURSE SRC_EXPRTK_LIB *.cpp *.hpp)
+file(GLOB_RECURSE SRC_EXPRTK_LIB *.cpp)
 
 set(SOURCE_FILES
-  ${HEADERS_EXPRTK_LIB}
   ${SRC_EXPRTK_LIB}
 )
 
-add_library(exprtk_lib SHARED ${SOURCE_FILES})
+option(BUILD_SHARED_LIBS "Build shared libs" OFF)
 
-add_compile_definitions(EXPRTKDLLBUILD)
+if(BUILD_SHARED_LIBS)
+	add_library(exprtk_lib SHARED ${SOURCE_FILES})
+	add_compile_definitions(EXPRTKDLLBUILD)
+else()
+	add_library(exprtk_lib STATIC ${SOURCE_FILES})
+endif()
 
 install(TARGETS exprtk_lib
 	ARCHIVE DESTINATION lib
